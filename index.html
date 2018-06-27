@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recursive Menu View</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="container">
+    <div id="app">
+      <div class="col-xs-12">
+        <h1>Menu</h1>
+        <div class="tree-menu">
+          <node 
+            v-for="node in nodes"
+            :key="node.id" 
+            :nodes="node.nodes" 
+            :label="node.name"
+            :depth="0"   
+          >
+          </node>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.js"></script>
+  <script type="text/javascript" src="./main.js"></script>
+  <script type="text/x-template" id="node">
+    <div class="node">
+      <div class="label-wrapper" @click="toggleChildren">
+        <div :style="indent" :class="labelClasses">
+          <i v-if="nodes" class="fa" :class="iconClasses"></i>
+          {{ label }}
+        </div>
+      </div>
+      <node 
+        v-if="showChildren"
+        v-for="node in nodes"
+        :key="node.id"
+        :nodes="node.nodes" 
+        :label="node.name"
+        :depth="depth + 1"   
+      >
+      </node>
+    </div>
+  </script>
+</body>
+</html>
